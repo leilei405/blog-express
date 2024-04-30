@@ -1,10 +1,19 @@
 const express = require("express");
 const router = express.Router();
+const {
+  getBlogList,
+  getBlogDetail,
+  createBlogArticle,
+  updateBlogArticle,
+  deleteBlogArticle,
+} = require("../controller/blog/blog");
+const { SuccessModel, ErrorModel } = require("../model/blogResModel");
 
 router.get("/list", function (req, res, next) {
-  res.json({
-    errno: 0,
-    data: "列表",
+  const { author = "", keyword = "" } = req.query || {};
+  const result = getBlogList(author, keyword);
+  return result.then((listData) => {
+    res.json(new SuccessModel(listData));
   });
 });
 

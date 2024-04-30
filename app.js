@@ -7,7 +7,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 // 路由
-const indexRouter = require("./routes/index");
+// const indexRouter = require("./routes/index");
 // const usersRouter = require("./routes/users");
 const blogRouter = require("./routes/blog");
 const userRouter = require("./routes/user");
@@ -16,15 +16,15 @@ const userRouter = require("./routes/user");
 var app = express();
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
+// app.set("views", path.join(__dirname, "views"));
+// app.set("view engine", "jade");
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use("/", indexRouter);
+// app.use("/", indexRouter);
 // app.use("/users", usersRouter);
 app.use("/api/blog", blogRouter);
 app.use("/api/user", userRouter);
