@@ -7,8 +7,10 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 // 路由
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+const indexRouter = require("./routes/index");
+// const usersRouter = require("./routes/users");
+const blogRouter = require("./routes/blog");
+const userRouter = require("./routes/user");
 
 // 创建应用
 var app = express();
@@ -23,7 +25,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+// app.use("/users", usersRouter);
+app.use("/api/blog", blogRouter);
+app.use("/api/user", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
