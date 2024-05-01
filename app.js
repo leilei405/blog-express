@@ -5,6 +5,8 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 // 生成日志
 var logger = require("morgan");
+// 处理session
+const session = require("express-session");
 
 // 路由
 // const indexRouter = require("./routes/index");
@@ -23,6 +25,16 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(
+  session({
+    secret: "bcakljsfb_cmsnckl!321",
+    cookie: {
+      path: "/", // 默认配置
+      httpOnly: true, // 默认配置
+      maxAge: 24 * 60 * 60 * 1000,
+    },
+  })
+);
 
 // app.use("/", indexRouter);
 // app.use("/users", usersRouter);

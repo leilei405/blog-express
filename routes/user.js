@@ -19,4 +19,17 @@ router.post("/register", function (req, res, next) {
   });
 });
 
+// session 测试
+router.get("/session-test", function (req, res, next) {
+  const session = req.session;
+  if (session.viewNum == null) {
+    session.viewNum = 0;
+  }
+  session.viewNum++;
+  res.json({
+    errno: 0,
+    data: session.viewNum,
+  });
+});
+
 module.exports = router;
