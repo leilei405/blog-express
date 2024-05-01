@@ -4,7 +4,10 @@ const { login, registerCheck } = require("../controller/blog/user");
 const { SuccessModel, ErrorModel } = require("../model/blogResModel");
 
 router.post("/login", function (req, res, next) {
-  const { username, password } = req.body;
+  const { username, password } = req.query;
+  console.log(req.session.username, "====userName1====");
+  console.log(username, "====userName2====");
+
   const data = login(username, password);
   return data.then((user) => {
     if (user.username) {
@@ -44,11 +47,9 @@ router.get("/session-test", function (req, res, next) {
 router.get("/login-test", function (req, res, next) {
   const session = req.session;
   if (session.username == null) {
-    console.log(1);
     res.json(new ErrorModel("请先登录"));
     return;
   } else {
-    console.log(2);
     res.json(new SuccessModel("登录成功"));
   }
 });

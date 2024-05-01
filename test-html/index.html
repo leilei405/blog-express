@@ -72,9 +72,9 @@
             url += '?author=' + urlParams.author
         }
 
+
         // 加载数据
         get(url).then((res) => {
-            console.log(res, '===res==');
             if (res.errCode !== 0) {
                 alert('数据错误')
                 return
