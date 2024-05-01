@@ -12,6 +12,9 @@ const { SuccessModel, ErrorModel } = require("../model/blogResModel");
 router.get("/list", function (req, res, next) {
   const { author = "", keyword = "" } = req.query || {};
   const result = getBlogList(author, keyword);
+  if (req.query.isadmin) {
+    author = req.session.username;
+  }
   return result.then((listData) => {
     res.json(new SuccessModel(listData));
   });

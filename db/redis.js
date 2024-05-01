@@ -9,12 +9,9 @@ const redisClient = redis.createClient({
   legacyMode: true, // 兼容v3
 });
 
-redisClient
-  .connect()
-  .then(() => {
-    console.log("success redis");
-  })
-  .catch((err) => console.error(err));
+redisClient.connect().then(() => {
+  console.log("success redis");
+});
 
 module.exports = redisClient;
 
