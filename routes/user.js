@@ -1,14 +1,22 @@
 const express = require("express");
 const router = express.Router();
+const { login, registerCheck } = require("../controller/blog/user");
+const { SuccessModel, ErrorModel } = require("../model/blogResModel");
 
 router.post("/login", function (req, res, next) {
   const { username, password } = req.body;
-  res.json({
-    errno: 0,
-    data: {
-      username,
-      password,
-    },
+  const data = login(username, password);
+  return data.then((user) => {
+    if (user.username) {
+      // 设置Session
+      req.session.username = user.username;
+      req.session.realname = user.realname;
+
+      res.json(new SuccessModel());
+      return;
+    }
+
+    res.json(new ErrorModel("登录失败"));
   });
 });
 
@@ -30,6 +38,19 @@ router.get("/session-test", function (req, res, next) {
     errno: 0,
     data: session.viewNum,
   });
+});
+
+// 登录测试
+router.get("/login-test", function (req, res, next) {
+  const session = req.session;
+  if (session.username == null) {
+    console.log(1);
+    res.json(new ErrorModel("请先登录"));
+    return;
+  } else {
+    console.log(2);
+    res.json(new SuccessModel("登录成功"));
+  }
 });
 
 module.exports = router;
